@@ -1,39 +1,38 @@
-export const ServicesCreatePageElements = {
+export const servicesCreatePageElements = {
     fullUrlInput:'gateway-service-url-input'
 };
 
 export const urls = {
-  
-  serviceUrl:'/default/services/create',
   servicesCreateUrl:'/default/services/create'
 }
+
+export class KoneMangerHomePage {
+  visit() {
+    cy.visit('/');
+    // enable method chaining
+    return this;
+  }
+
+  clickDefauleWorkSpace(){
+    cy.locator(servicesCreatePageElements.fullUrlInput).click();
+    return this;
+  }
+
+}
+
+
 
 export class GatewayServicePage {
   visit() {
     cy.visit(urls.servicesCreateUrl);
+    return this;
   }
 
   inputAndSave(){
-    cy.locator(ServicesCreatePageElements.fullUrlInput).type('https://api.kong-air.com/test');
+    cy.locator(servicesCreatePageElements.fullUrlInput).type('https://api.kong-air.com/test');
+    return this;
   }
 
-  // typeUsername(username: string) {
-  //   this.elements.usernameInput().type(username);
-  // }
-
-  // typePassword(password: string) {
-  //   this.elements.passwordInput().type(password);
-  // }
-
-  // clickLogin() {
-  //   this.elements.loginBtn().click();
-  // }
-
-  // submitLogin(username: string, password: string) {
-  //   this.typeUsername(username);
-  //   this.typePassword(password);
-  //   this.clickLogin();
-  // }
 }
 
 // export default new GatewayServicePage();

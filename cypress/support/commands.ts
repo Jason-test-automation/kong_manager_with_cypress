@@ -57,23 +57,14 @@ declare global {
 
 Cypress.Commands.add('dockerUp', () => {
   cy.exec('docker-compose up -d', { timeout: 180000 })
-    .then((result) => {
-      if (result.code !== 0) {
-        throw new Error(`docker-compose up failed: ${result.stderr}`);
-      }
-      cy.wait(5000); 
-    });
+    cy.wait(5000); 
 });
 
 Cypress.Commands.add('dockerDown', () => {
   cy.exec('docker-compose down', {
     failOnNonZeroExit: false,
     timeout: 60000
-  }).then((result) => {
-    if (result.code !== 0) {
-        cy.log('docker down failed.',result.stderr);
-    }
-  });
+  })
 });
 
 Cypress.Commands.add('locator', (testId: string) => {

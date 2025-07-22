@@ -1,9 +1,10 @@
 // import loginPage from './pages/test.page';
 import '../support/commands';
-import {ServicesCreatePageElements,GatewayServicePage} from './pages/test.page'
+import {GatewayServicePage,KoneMangerHomePage} from './pages/test.page'
 const gatewayServicePage = new GatewayServicePage();
+const koneMangerHomePage = new KoneMangerHomePage();
 
-describe('Login Tests', () => {
+describe('Kong Manager Tests', () => {
   before(() => {
     cy.dockerUp();
   });
@@ -14,9 +15,10 @@ describe('Login Tests', () => {
 
   it('create new gateway service', () => {
     // cy.visit('http://localhost:8002/default/services/create')
-    gatewayServicePage.visit();
-    gatewayServicePage.inputAndSave();
     // cy.locator(ServicesCreatePageElements.fullUrlInput).type('testufl');
+    //create the service
+    gatewayServicePage.visit().inputAndSave();
+
   });
 
 });
