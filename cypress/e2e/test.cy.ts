@@ -1,8 +1,8 @@
 // import loginPage from './pages/test.page';
 import '../support/commands';
-import {GatewayServicePage,KoneMangerHomePage} from './pages/test.page'
-const gatewayServicePage = new GatewayServicePage();
-const koneMangerHomePage = new KoneMangerHomePage();
+import WorkspacesPage from './pages/workspace.page'
+import GatewayServicePage from './pages/gateway-service-create.page'
+
 
 describe('Kong Manager Tests', () => {
   before(() => {
@@ -17,7 +17,8 @@ describe('Kong Manager Tests', () => {
     // cy.visit('http://localhost:8002/default/services/create')
     // cy.locator(ServicesCreatePageElements.fullUrlInput).type('testufl');
     //create the service
-    gatewayServicePage.visit().inputAndSave();
+    WorkspacesPage.visit().defauleWorkSpaceClick().addAGatewayServiceClick()
+    GatewayServicePage.createNewGatewayServiceWithUrl('https://api.kong-air.com/test','random_name','random tag');
 
   });
 
