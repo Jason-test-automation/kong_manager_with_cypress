@@ -1,15 +1,14 @@
-const baseUrl  = 'http://localhost:8002';
-const serviceCrearePath = '/default/services/create'
+const baseUrl = 'http://localhost:8002';
+const serviceCrearePath = '/default/services/create';
 
 export const urls = {
-  baseUrl:baseUrl,
-  servicesCreateUrl:baseUrl + serviceCrearePath
-}
+  baseUrl: baseUrl,
+  servicesCreateUrl: baseUrl + serviceCrearePath,
+};
 
 export const workspacesPageElements = {
-    defaultWorkspaceBtn:'workspace-link-default',
-    addAGatewayServiceBtn:'action-button'
-
+  defaultWorkspaceBtn: 'workspace-link-default',
+  addAGatewayServiceBtn: 'action-button',
 };
 
 export class WorkspacesPage {
@@ -19,15 +18,15 @@ export class WorkspacesPage {
     return this;
   }
 
-  clickDefauleWorkSpace(){
+  clickDefauleWorkSpace() {
     cy.getLocator(workspacesPageElements.defaultWorkspaceBtn).click();
     return this;
   }
 
-  clickAddAGatewayService(){
+  clickAddAGatewayService() {
     cy.getLocator(workspacesPageElements.addAGatewayServiceBtn).click();
     return this;
   }
 }
 
-export default new WorkspacesPage()
+export default new WorkspacesPage();

@@ -13,13 +13,13 @@ declare global {
 }
 
 Cypress.Commands.add('dockerUp', () => {
-  cy.exec('docker-compose up -d', { timeout: 60000 })
-    cy.wait(5000); 
+  cy.exec('docker-compose up -d', { timeout: 60000 });
+  cy.wait(5000);
 });
 
 Cypress.Commands.add('dockerDown', () => {
-  cy.wait(5000); 
-  cy.exec("docker-compose down", { failOnNonZeroExit: false });
+  cy.wait(5000);
+  cy.exec('docker-compose down', { failOnNonZeroExit: false });
 });
 
 Cypress.Commands.add('getLocator', (testId: string) => {
