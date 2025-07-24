@@ -45,10 +45,7 @@ export class GatewayServicePage {
 
   clickSaveAfterFormError() {
     cy.get('body').then(($body) => {
-      if (
-        Cypress.$(cy.getLocator(servicesCreatePageElements.formError)).length >
-        0
-      ) {
+      if ($body.find(cy.getLocator(servicesCreatePageElements.formError)).length > 0) {
         cy.getLocator(servicesCreatePageElements.saveBtn).click();
       }
     });
