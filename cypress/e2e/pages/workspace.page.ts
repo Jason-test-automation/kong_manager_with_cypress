@@ -19,13 +19,13 @@ export class WorkspacesPage {
     return this;
   }
 
-  defauleWorkSpaceClick(){
-    cy.locator(workspacesPageElements.defaultWorkspaceBtn).click();
+  clickDefauleWorkSpace(){
+    cy.getLocator(workspacesPageElements.defaultWorkspaceBtn).click();
     return this;
   }
 
-  addAGatewayServiceClick(){
-    cy.locator(workspacesPageElements.addAGatewayServiceBtn).click();
+  clickAddAGatewayService(){
+    cy.getLocator(workspacesPageElements.addAGatewayServiceBtn).click();
     return this;
   }
 }

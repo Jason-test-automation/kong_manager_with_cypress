@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:run": "cypress run --headed --browser chrome --config viewportWidth=1280,viewportHeight=800",
+    "test:run": "npx cypress run",
     "test:open": "cypress open --headed --browser chrome --config viewportWidth=1280,viewportHeight=800",
     "generate-report": "marge cypress/results/*.json --reportDir cypress/results --inline --xml",
-    "test": "cypress run && npm run generate-report"
+    "test": "npx cypress run && npm run generate-report"
   },
   "keywords": [],
   "author": "Jason",

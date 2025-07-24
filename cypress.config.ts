@@ -8,13 +8,13 @@ export default defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.ts',
     supportFile: false,
   },
-  video: true,
+  video: false,
   screenshotOnRunFailure: true,
   reporter: 'mochawesome',
   reporterOptions: {
     reportDir: 'cypress/results',
     overwrite: false,
-    html: false,
-    json: true
+    html: true,
+    json: false
   },
 });
