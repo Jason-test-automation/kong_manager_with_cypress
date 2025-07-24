@@ -13,8 +13,10 @@ declare global {
 }
 
 Cypress.Commands.add('dockerUp', () => {
-  cy.exec('docker-compose up -d', { timeout: 60000 });
-  cy.wait(5000);
+  cy.exec('docker-compose up -d', { timeout: 180000 }).then(() =>{
+      cy.wait(5000);
+  });
+
 });
 
 Cypress.Commands.add('dockerDown', () => {
