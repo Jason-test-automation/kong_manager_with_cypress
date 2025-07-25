@@ -10,27 +10,26 @@ export const workspacesPageElements = {
   defaultWorkspaceBtn: 'workspace-link-default',
   addAGatewayServiceBtn: 'action-button',
   servicesNumber: 'Services',
-  gatwayServicesTab: 'sidebar-item-gateway-services'
+  gatwayServicesTab: 'sidebar-item-gateway-services',
 };
 
 export class WorkspacesPage {
   deleteService() {
     cy.getLocator(workspacesPageElements.servicesNumber)
       .invoke('text')
-      .then(text => {
+      .then((text) => {
         const num = parseInt(text.trim(), 10);
-        cy.log('==============', num)
+        cy.log('==============', num);
         if (num > 0) {
-          this.clickDefauleWorkSpace()
+          this.clickDefauleWorkSpace();
           cy.get('.sidebar-menu-toggle').then(($el) => {
             if ($el.is(':visible')) {
               cy.wrap($el).click();
-              cy.getLocator(workspacesPageElements.gatwayServicesTab).click()
+              cy.getLocator(workspacesPageElements.gatwayServicesTab).click();
             } else {
-              cy.getLocator(workspacesPageElements.gatwayServicesTab).click()
+              cy.getLocator(workspacesPageElements.gatwayServicesTab).click();
             }
           });
-
         }
       });
   }

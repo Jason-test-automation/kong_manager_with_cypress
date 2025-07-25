@@ -6,8 +6,8 @@ import GatewayServicePage from './pages/serviceCreate.page';
 describe('Kong Manager Tests', () => {
   before(() => {
     cy.dockerUp();
-    WorkspacesPage.visit()
-    WorkspacesPage.deleteService()
+    WorkspacesPage.visit();
+    WorkspacesPage.deleteService();
   });
 
   after(() => {
