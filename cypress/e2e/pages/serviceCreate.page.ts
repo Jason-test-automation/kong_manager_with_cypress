@@ -45,7 +45,8 @@ export class GatewayServicePage {
       .then(() => {
         cy.get('body').then(($body) => {
           if (
-            $body.find(cy.getLocator(servicesCreatePageElements.formError))
+            //find expects a selector string, not a Cypress command. so can not use cy.getLocator()
+            $body.find(`[data-testid="${servicesCreatePageElements.formError}"]`)
               .length > 0
           ) {
             // error occured

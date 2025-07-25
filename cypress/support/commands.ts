@@ -24,7 +24,7 @@ Cypress.Commands.add('dockerDown', () => {
 });
 
 Cypress.Commands.add('getLocator', (testId: string) => {
-  cy.get(`[data-testid="${testId}"]`);
+  return cy.get(`[data-testid="${testId}"]`);
 });
 
 Cypress.on('uncaught:exception', (err) => {
