@@ -22,8 +22,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Verify Cypress Installation
-        run: ls node_modules/.bin
+      - name: Install Cypress
+        run: npm install cypress
 
       - name: Set up Docker Compose
         run: |
