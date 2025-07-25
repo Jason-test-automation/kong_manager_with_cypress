@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:run": "npx cypress run",
+    "test:run": "cypress run",
     "test:headed": "npx cypress run --headed --browser chrome --config viewportWidth=1280,viewportHeight=800",
     "generate-report": "marge cypress/results/*.json --reportDir cypress/results --inline --xml",
-    "test": "npx cypress run",
+    "test": "cypress run",
     "format": "prettier --write \"cypress/**/*.{js,ts,jsx,tsx}\""
   },
   "keywords": [],
@@ -14,7 +14,6 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/cypress": "^0.1.6",
     "@types/mocha": "^10.0.10",
     "@types/node": "^24.0.15",
     "cypress": "^14.5.2",

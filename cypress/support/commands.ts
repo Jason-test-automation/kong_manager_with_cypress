@@ -13,10 +13,9 @@ declare global {
 }
 
 Cypress.Commands.add('dockerUp', () => {
-  cy.exec('docker-compose up -d', { timeout: 180000 }).then(() =>{
-      cy.wait(5000);
+  cy.exec('docker-compose up -d', { timeout: 180000 }).then(() => {
+    cy.wait(5000);
   });
-
 });
 
 Cypress.Commands.add('dockerDown', () => {
@@ -25,10 +24,10 @@ Cypress.Commands.add('dockerDown', () => {
 });
 
 Cypress.Commands.add('getLocator', (testId: string) => {
-  cy.get(`[data-testid="${testId}"]`);
+  return cy.get(`[data-testid="${testId}"]`);
 });
 
-Cypress.on('uncaught:exception', (err, runnable) => {
+Cypress.on('uncaught:exception', (err) => {
   console.error('Uncaught exception:', err);
   return false; // prevent Cypress from failing the test
 });

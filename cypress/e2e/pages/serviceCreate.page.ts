@@ -8,13 +8,13 @@ export const servicesCreatePageElements = {
 };
 
 export class GatewayServicePage {
+  // create a new gateway service frome inputing the url, service name, expend tages field and enter a tag name. click save
   createNewGatewayServiceWithUrl(url: string, name: string, tagName: string) {
     this.enterFullUrl(url);
     this.entername(name);
     this.clickAddTages();
     this.enterTags(tagName);
     this.clickSave();
-    this.clickSaveAfterFormError();
     return this;
   }
 
@@ -38,19 +38,35 @@ export class GatewayServicePage {
     return this;
   }
 
+  // sometimes all the inputs entered with no error,but once click the save btn it will pop up an error form.
   clickSave() {
-    cy.getLocator(servicesCreatePageElements.saveBtn).click();
+    cy.getLocator(servicesCreatePageElements.saveBtn)
+      .click()
+      .then(() => {
+        cy.get('body').then(($body) => {
+          if (
+            //find expects a selector string, not a Cypress command. so can not use cy.getLocator()
+            $body.find(`[data-testid="${servicesCreatePageElements.formError}"]`)
+              .length > 0
+          ) {
+            // error occured
+            cy.wrap($body)
+              .find(servicesCreatePageElements.formError)
+              .should('not.exist');
+          }
+        });
+      });
     return this;
   }
 
-  clickSaveAfterFormError() {
-    cy.get('body').then(($body) => {
-      if ($body.find(cy.getLocator(servicesCreatePageElements.formError)).length > 0) {
-        cy.getLocator(servicesCreatePageElements.saveBtn).click();
-      }
-    });
-    return this;
-  }
+  // clickSaveAfterFormError() {
+  //   cy.get('body').then(($body) => {
+  //     if ($body.find(cy.getLocator(servicesCreatePageElements.formError)).length > 0) {
+  //       cy.getLocator(servicesCreatePageElements.saveBtn).click();
+  //     }
+  //   });
+  //   return this;
+  // }
 }
 
 export default new GatewayServicePage();
