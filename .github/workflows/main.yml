@@ -18,15 +18,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-      
-      - name: Update npm
-        run: npm install -g npm@latest
 
       - name: Install dependencies
-        run: npm install
-
-      - name: Install Cypress
-        run: npm install cypress
+        run: |
+          rm -rf node_modules
+          rm -f package-lock.json
+          npm ci
 
       - name: Set up Docker Compose
         run: |
