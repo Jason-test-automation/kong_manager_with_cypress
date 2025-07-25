@@ -2,12 +2,12 @@ name: Kong Manager UI Automation With Cypress
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  test-on-linux:
+  cypress-tests-on-linux:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,25 +31,25 @@ jobs:
       - name: Run Cypress tests
         run: npm run test
 
-  test-on-windows:
-    runs-on: windows-latest
+  # cypress-tests-on-windows:
+  #   runs-on: windows-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
+  #     - name: Install dependencies
+  #       run: npm install
 
-      - name: Set up Docker Compose
-        run: |
-          curl -L "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-windows-x86_64.exe" -o docker-compose.exe
-          docker-compose.exe --version
+  #     - name: Set up Docker Compose
+  #       run: |
+  #         curl -L "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-windows-x86_64.exe" -o docker-compose.exe
+  #         docker-compose.exe --version
 
-      - name: Run Cypress tests
-        run: npm run test
+  #     - name: Run Cypress tests
+  #       run: npm run test
