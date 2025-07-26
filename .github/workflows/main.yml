@@ -19,11 +19,19 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install stable npm version
+        run: |
+          # Remove existing node/npm
+          sudo apt-get remove -y nodejs npm
+          # Install Node.js 16 (comes with npm v8)
+          curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          # Verify
+          node -v  # Should show v16.x
+          npm -v   # Should show 8.x
+
       - name: Install dependencies
         run: npm install
-
-      - name: Install Cypress
-        run: npm install cypress
 
       - name: Set up Docker Compose
         run: |

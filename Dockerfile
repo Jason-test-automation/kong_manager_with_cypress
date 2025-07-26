@@ -1,23 +1,17 @@
-# Use the official Node.js image as a base
-FROM node:latest
+# Use the official Cypress image
+FROM cypress/included:12.12.0
 
-# Set the working directory in the container
-WORKDIR /app
+# Set working directory
+WORKDIR /e2e
 
-# Copy package.json and package-lock.json to the working directory
-COPY package.json package-lock.json ./
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the application code to the working directory
+# Copy all files
 COPY . .
 
-# Install Cypress
-RUN npm install cypress
-
-# Run Cypress tests (optional, if you want to run tests during build)
-# RUN npx cypress run
-
-# Specify the command to start your application
-CMD ["npm", "start"]
+# Command to run tests
+ENTRYPOINT ["npx", "cypress", "run"]

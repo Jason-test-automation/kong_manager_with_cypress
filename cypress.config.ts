@@ -12,7 +12,7 @@ export default defineConfig({
   screenshotOnRunFailure: true,
   reporter: 'mochawesome',
   reporterOptions: {
-    reportDir: 'cypress/results',
+    reportDir: 'reports',
     overwrite: false,
     html: true,
     json: false
