@@ -7,7 +7,7 @@ export const servicesCreatePageElements = {
   formError: 'form-error',
 };
 
-export class GatewayServicePage {
+export class ServiceCreatePage {
   // create a new gateway service frome inputing the url, service name, expend tages field and enter a tag name. click save
   createNewGatewayServiceWithUrl(url: string, name: string, tagName: string) {
     this.enterFullUrl(url);
@@ -58,15 +58,6 @@ export class GatewayServicePage {
       });
     return this;
   }
-
-  // clickSaveAfterFormError() {
-  //   cy.get('body').then(($body) => {
-  //     if ($body.find(cy.getLocator(servicesCreatePageElements.formError)).length > 0) {
-  //       cy.getLocator(servicesCreatePageElements.saveBtn).click();
-  //     }
-  //   });
-  //   return this;
-  // }
 }
 
-export default new GatewayServicePage();
+export default new ServiceCreatePage();

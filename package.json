@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:run": "cypress run",
-    "test:headed": "npx cypress run --headed --browser chrome --config viewportWidth=1280,viewportHeight=800",
-    "generate-report": "marge cypress/results/*.json --reportDir cypress/results --inline --xml",
-    "test": "cypress run",
-    "format": "prettier --write \"cypress/**/*.{js,ts,jsx,tsx}\""
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:chrome": "cypress run --headed --browser chrome",
+    "cy:firefox": "cypress run --browser firefox",
+    "cy:edge": "cypress run --browser edge",
+    "cy:report": "npx mochawesome-merge 'reports/*.json' > reports/combined-report.json && npx marge reports/combined-report.json -f cypress-report -o reports --inline",
+    "test": "npm run cy:chrome && npm run cy:report",
+    "lint": "eslint cypress --ext .ts",
+    "format": "prettier --write cypress/**/*.ts"
   },
   "keywords": [],
   "author": "Jason",

@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-export {};
+export { };
 
 declare global {
   namespace Cypress {
@@ -8,6 +8,7 @@ declare global {
       dockerUp(): Chainable<void>;
       dockerDown(): Chainable<void>;
       getLocator(testId: string): Chainable<JQuery<HTMLElement>>;
+      waitForText(text: string, timeout?: number): Chainable<JQuery<HTMLElement>>;
     }
   }
 }
@@ -25,6 +26,10 @@ Cypress.Commands.add('dockerDown', () => {
 
 Cypress.Commands.add('getLocator', (testId: string) => {
   return cy.get(`[data-testid="${testId}"]`);
+});
+
+Cypress.Commands.add('waitForText', (text: string, timeout?: number) => {
+  return cy.get('body').should('contain', text, { timeout });
 });
 
 Cypress.on('uncaught:exception', (err) => {
