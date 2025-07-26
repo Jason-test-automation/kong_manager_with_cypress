@@ -1,3 +1,5 @@
+import { Utils } from '../../support/utils';
+
 export const servicesCreatePageElements = {
   fullUrlInput: 'gateway-service-url-input',
   nameInput: 'gateway-service-name-input',
@@ -46,7 +48,7 @@ export class ServiceCreatePage {
         cy.get('body').then(($body) => {
           if (
             //find expects a selector string, not a Cypress command. so can not use cy.getLocator()
-            $body.find(`[data-testid="${servicesCreatePageElements.formError}"]`)
+            $body.find(Utils.getTestId(servicesCreatePageElements.formError))
               .length > 0
           ) {
             // error occured

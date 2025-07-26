@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-export { };
+export {};
 
 declare global {
   namespace Cypress {
@@ -8,7 +8,10 @@ declare global {
       dockerUp(): Chainable<void>;
       dockerDown(): Chainable<void>;
       getLocator(testId: string): Chainable<JQuery<HTMLElement>>;
-      waitForText(text: string, timeout?: number): Chainable<JQuery<HTMLElement>>;
+      waitForText(
+        text: string,
+        timeout?: number
+      ): Chainable<JQuery<HTMLBodyElement>>;
     }
   }
 }
