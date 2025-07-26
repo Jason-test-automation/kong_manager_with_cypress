@@ -1,17 +1,22 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "lib": ["ES2016", "DOM"],
-    "types": ["cypress"],
+    "lib": [
+      "ES2016",
+      "DOM"
+    ],
+    "types": [
+      "cypress"
+    ],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
-    // "outDir": "./dist",
     "module": "commonjs",
     "noEmit": true
   },
-  "include": ["**/*.ts"]
-  // "exclude": ["node_modules"]
+  "include": [
+    "**/*.ts"
+  ]
 }
