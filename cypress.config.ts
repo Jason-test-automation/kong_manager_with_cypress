@@ -8,13 +8,11 @@ export default defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.ts',
     supportFile: false,
   },
-  video: false,
+  video: true,
   screenshotOnRunFailure: true,
-  reporter: 'mochawesome',
+  reporter: 'mocha-junit-reporter',
   reporterOptions: {
-    reportDir: 'reports',
-    overwrite: false,
-    html: true,
-    json: false
+    testsuitesTitle: 'Kong Manager Cypress Tests',
+    mochaFile: 'reports/junit/results-[hash].xml'
   },
 });

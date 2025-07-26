@@ -8,10 +8,8 @@
     "cy:chrome": "cypress run --headed --browser chrome",
     "cy:firefox": "cypress run --browser firefox",
     "cy:edge": "cypress run --browser edge",
-    "cy:report": "npx mochawesome-merge 'reports/*.json' > reports/combined-report.json && npx marge reports/combined-report.json -f cypress-report -o reports --inline",
-    "test": "npm run cy:chrome && npm run cy:report",
-    "lint": "eslint cypress --ext .ts",
-    "format": "prettier --write cypress/**/*.ts"
+    "format": "prettier --write cypress/**/*.ts",
+    "test": "npm run cy:run"
   },
   "keywords": [],
   "author": "Jason",
@@ -22,8 +20,7 @@
     "@types/node": "^24.0.15",
     "cypress": "^14.5.2",
     "mocha": "^11.7.1",
-    "mochawesome": "^7.1.3",
-    "mochawesome-report-generator": "^6.2.0",
+    "mocha-junit-reporter": "^2.2.1",
     "prettier": "^3.6.2",
     "typescript": "^5.8.3"
   }
