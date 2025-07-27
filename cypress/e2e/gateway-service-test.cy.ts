@@ -4,11 +4,10 @@ import workspacesPage from '../pages/workspace.page';
 import gatewayServicePage from '../pages/gateway-services-page/gateway-services.page';
 import gatewayServiceDetailPage from '../pages/gateway-services-page/gateway-service-detail.page';
 import routesCreatePage, {
-  routesMethods,
+  RoutesMethods,
 } from '../pages/routes-page/route-create.page';
 import routePage from '../pages/routes-page/routes.page';
 import routeDetailPage from '../pages/routes-page/route-detail.page';
-import { Utils } from '../support/utils';
 
 const TestData = {
   service: {
@@ -34,17 +33,17 @@ const TestData = {
 describe('Kong Manager Tests', () => {
   before(() => {
     cy.dockerUp();
+    cy.verifyDockerIsUP();
   });
 
   after(() => {
-    Utils.deleteRouteByRouteName(TestData.route.name);
-    Utils.deleteServiceByServiceName(TestData.service.name);
+    routePage.deleteRouteByRouteName(TestData.route.name);
+    gatewayServicePage.deleteServiceByServiceName(TestData.service.name);
     cy.dockerDown();
   });
 
   it('create new gateway service and add a releated route', () => {
     workspacesPage.visit();
-
     //create a service
     gatewayServicePage.newGatewayService(
       TestData.service.url,
@@ -52,9 +51,9 @@ describe('Kong Manager Tests', () => {
       TestData.service.tag
     );
     // simple assertion service
-    gatewayServiceDetailPage.getServiceName().then((name) => {
-      expect(name).to.equal(TestData.service.name);
-    });
+    gatewayServiceDetailPage
+      .getServiceName()
+      .should('eq', TestData.service.name);
     //add a route to this service
     gatewayServiceDetailPage.addRouteFromAlertMessage();
     //go to route create page
@@ -62,14 +61,12 @@ describe('Kong Manager Tests', () => {
       TestData.route.name,
       TestData.route.tag,
       TestData.route.path,
-      routesMethods.get,
+      RoutesMethods.get,
       TestData.route.host
     );
     //then it will goto Routes page
     routePage.goToRouteDetailPage(TestData.route.name);
-    //assertion route
-    routeDetailPage.getRouteName().then((name) => {
-      expect(name).to.equal(TestData.route.name);
-    });
+    //simple assertion route
+    routeDetailPage.getRouteName().should('eq', TestData.route.name);
   });
 });

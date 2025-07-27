@@ -1,6 +1,6 @@
 import { Utils } from '../../support/utils';
 
-export const gatewayServiceDetailPageElements = {
+export const GatewayServiceDetailPageElements = {
   serviceName: 'name-plain-text',
   serviceID: 'id-copy-uuid',
   gatewayServiceActions: 'header-actions',
@@ -13,73 +13,73 @@ export const gatewayServiceDetailPageElements = {
 
 export class GatewayServiceDetailPage {
   //if there is no route
-  addRouteFromAlertMessage() {
+  addRouteFromAlertMessage(): this {
     cy.contains('button[type="button"]', 'Add a Route').click();
+    return this;
   }
 
   //add routes from left side Routes tab
-  addRoutes() {
-    cy.getLocator(gatewayServiceDetailPageElements.routesTab).click();
+  addRoutes(): this {
+    cy.getLocator(GatewayServiceDetailPageElements.routesTab).click();
     cy.get('body').then(($body) => {
       if (
-        $body.find(Utils.getTestId(gatewayServiceDetailPageElements.newRoute))
+        $body.find(Utils.getTestId(GatewayServiceDetailPageElements.newRoute))
           .length > 0
       ) {
-        cy.getLocator(gatewayServiceDetailPageElements.newRoute).click();
+        cy.getLocator(GatewayServiceDetailPageElements.newRoute).click();
       } else {
-        cy.getLocator(gatewayServiceDetailPageElements.toolbarNewRoute).click();
+        cy.getLocator(GatewayServiceDetailPageElements.toolbarNewRoute).click();
       }
     });
     return this;
   }
 
-  deleteService(serviceName: string) {
+  deleteService(serviceName: string): this {
     this.clickServiceActions();
     this.clickDelete();
     this.typeServiceName(serviceName);
     this.clickYesDelete();
+    return this;
   }
 
   getServiceName(): Cypress.Chainable<string> {
     return cy
-      .getLocator(gatewayServiceDetailPageElements.serviceName)
+      .getLocator(GatewayServiceDetailPageElements.serviceName)
       .invoke('text')
       .then((text) => text.trim());
   }
 
-  getServiceID(): Cypress.Chainable<string> {
-    return (
-      cy
-        .getLocator(gatewayServiceDetailPageElements.serviceID)
-        .invoke('text')
-        // element text end with Copy ID need to replace to ''
-        .then((text) => {
-          return text.replace('Copy ID', '').trim();
-        })
-    );
+  getServiceID(): this {
+    cy.getLocator(GatewayServiceDetailPageElements.serviceID)
+      .invoke('text')
+      // element text end with Copy ID need to replace to ''
+      .then((text) => {
+        return text.replace('Copy ID', '').trim();
+      });
+    return this;
   }
 
-  clickServiceActions() {
+  clickServiceActions(): this {
     cy.getLocator(
-      gatewayServiceDetailPageElements.gatewayServiceActions
+      GatewayServiceDetailPageElements.gatewayServiceActions
     ).click();
     return this;
   }
 
-  clickDelete() {
+  clickDelete(): this {
     cy.contains('Delete').click();
     return this;
   }
 
-  typeServiceName(serviceName: string) {
+  typeServiceName(serviceName: string): this {
     cy.getLocator(
-      gatewayServiceDetailPageElements.deleteServiceConfirmInput
+      GatewayServiceDetailPageElements.deleteServiceConfirmInput
     ).type(serviceName);
     return this;
   }
 
-  clickYesDelete() {
-    cy.getLocator(gatewayServiceDetailPageElements.yesDeleteBtn).click();
+  clickYesDelete(): this {
+    cy.getLocator(GatewayServiceDetailPageElements.yesDeleteBtn).click();
     return this;
   }
 }

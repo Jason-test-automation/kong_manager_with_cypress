@@ -1,4 +1,4 @@
-export const routeDetailPageElements = {
+export const RouteDetailPageElements = {
   routeActionsBtn: 'header-actions',
   deleteRouteConfirmInput: 'confirmation-input',
   yesDeleteBtn: 'modal-action-button',
@@ -6,39 +6,40 @@ export const routeDetailPageElements = {
 };
 
 export class RouteDetailPage {
-  deleteRoute(routeName: string) {
+  deleteRoute(routeName: string): this {
     this.clickRouteActions();
     this.clickDelete();
     this.typeRouteName(routeName);
     this.clickYesDelete();
+    return this;
   }
 
   getRouteName(): Cypress.Chainable<string> {
     return cy
-      .getLocator(routeDetailPageElements.routeName)
+      .getLocator(RouteDetailPageElements.routeName)
       .invoke('text')
       .then((text) => text.trim());
   }
 
-  clickRouteActions() {
-    cy.getLocator(routeDetailPageElements.routeActionsBtn).click();
+  clickRouteActions(): this {
+    cy.getLocator(RouteDetailPageElements.routeActionsBtn).click();
     return this;
   }
 
-  clickDelete() {
+  clickDelete(): this {
     cy.contains('Delete').click();
     return this;
   }
 
-  typeRouteName(routeName: string) {
-    cy.getLocator(routeDetailPageElements.deleteRouteConfirmInput).type(
+  typeRouteName(routeName: string): this {
+    cy.getLocator(RouteDetailPageElements.deleteRouteConfirmInput).type(
       routeName
     );
     return this;
   }
 
   clickYesDelete() {
-    cy.getLocator(routeDetailPageElements.yesDeleteBtn).click();
+    cy.getLocator(RouteDetailPageElements.yesDeleteBtn).click();
     return this;
   }
 }

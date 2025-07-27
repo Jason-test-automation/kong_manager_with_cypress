@@ -1,6 +1,5 @@
-import { Utils } from '../../support/utils';
-import { routePageElements } from './routes.page';
-export const routesCreatePageElements = {
+import { RoutePageElements } from './routes.page';
+export const RoutesCreatePageElements = {
   routeNameInput: 'route-form-name',
   tagsInput: 'route-form-tags',
   pathInput: 'route-form-paths-input-1',
@@ -9,7 +8,7 @@ export const routesCreatePageElements = {
   saveBtn: 'route-create-form-submit',
 };
 
-export const routesMethods = {
+export const RoutesMethods = {
   get: 'multiselect-item-GET',
   put: 'multiselect-item-PUT',
   post: 'multiselect-item-POST',
@@ -30,7 +29,7 @@ export class RoutesCreatePage {
     pathName: string,
     method: string,
     host: string
-  ) {
+  ): this {
     this.enterRouteName(routeName);
     this.enterTagsName(tagsName);
     this.enterPathName(pathName);
@@ -38,41 +37,41 @@ export class RoutesCreatePage {
     this.enterHost(host);
     this.clickSave();
     //route should exist
-    cy.getLocator(routePageElements.routeNameLabel)
+    cy.getLocator(RoutePageElements.routeNameLabel)
       .find(`:contains(${routeName})`)
       .should('exist');
     return this;
   }
 
-  enterRouteName(routeName: string) {
-    cy.getLocator(routesCreatePageElements.routeNameInput).type(routeName);
+  enterRouteName(routeName: string): this {
+    cy.getLocator(RoutesCreatePageElements.routeNameInput).type(routeName);
     return this;
   }
 
-  enterTagsName(tagsName: string) {
-    cy.getLocator(routesCreatePageElements.tagsInput).type(tagsName);
+  enterTagsName(tagsName: string): this {
+    cy.getLocator(RoutesCreatePageElements.tagsInput).type(tagsName);
     return this;
   }
 
-  enterPathName(pathName: string) {
-    cy.getLocator(routesCreatePageElements.pathInput).type(pathName);
+  enterPathName(pathName: string): this {
+    cy.getLocator(RoutesCreatePageElements.pathInput).type(pathName);
     return this;
   }
 
-  selectMethods(method: string) {
-    cy.getLocator(routesCreatePageElements.methodsListBox).click();
-    cy.getLocator(routesMethods.get).click();
-    cy.getLocator(routesCreatePageElements.methodsListBox).click();
+  selectMethods(method: string): this {
+    cy.getLocator(RoutesCreatePageElements.methodsListBox).click();
+    cy.getLocator(RoutesMethods.get).click();
+    cy.getLocator(RoutesCreatePageElements.methodsListBox).click();
     return this;
   }
 
-  enterHost(host: string) {
-    cy.getLocator(routesCreatePageElements.hostInput).type(host);
+  enterHost(host: string): this {
+    cy.getLocator(RoutesCreatePageElements.hostInput).type(host);
     return this;
   }
 
-  clickSave() {
-    cy.getLocator(routesCreatePageElements.saveBtn).click();
+  clickSave(): this {
+    cy.getLocator(RoutesCreatePageElements.saveBtn).click();
     return this;
   }
 }

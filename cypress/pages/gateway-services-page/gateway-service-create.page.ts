@@ -1,6 +1,6 @@
 import { Utils } from '../../support/utils';
 
-export const servicesCreatePageElements = {
+export const GatewayServicesCreatePageElements = {
   fullUrlInput: 'gateway-service-url-input',
   nameInput: 'gateway-service-name-input',
   saveBtn: 'service-create-form-submit',
@@ -9,9 +9,13 @@ export const servicesCreatePageElements = {
   formError: 'form-error',
 };
 
-export class ServiceCreatePage {
+export class GatewayServiceCreatePage {
   // create a new gateway service frome inputing the url, service name, expend tages field and enter a tag name. click save
-  createNewGatewayServiceWithUrl(url: string, name: string, tagName: string) {
+  createNewGatewayServiceWithUrl(
+    url: string,
+    name: string,
+    tagName: string
+  ): this {
     this.enterFullUrl(url);
     this.entername(name);
     this.clickAddTages();
@@ -20,40 +24,47 @@ export class ServiceCreatePage {
     return this;
   }
 
-  enterFullUrl(url: string) {
-    cy.getLocator(servicesCreatePageElements.fullUrlInput).type(url);
+  enterFullUrl(url: string): this {
+    cy.getLocator(GatewayServicesCreatePageElements.fullUrlInput)
+      .clear()
+      .type(url);
     return this;
   }
 
-  entername(name: string) {
-    cy.getLocator(servicesCreatePageElements.nameInput).clear().type(name);
+  entername(name: string): this {
+    cy.getLocator(GatewayServicesCreatePageElements.nameInput)
+      .clear()
+      .type(name);
     return this;
   }
 
-  clickAddTages() {
-    cy.getLocator(servicesCreatePageElements.addTagesBtn).eq(1).click();
+  clickAddTages(): this {
+    cy.getLocator(GatewayServicesCreatePageElements.addTagesBtn).eq(1).click();
     return this;
   }
 
-  enterTags(tagName: string) {
-    cy.getLocator(servicesCreatePageElements.tagsInput).clear().type(tagName);
+  enterTags(tagName: string): this {
+    cy.getLocator(GatewayServicesCreatePageElements.tagsInput)
+      .clear()
+      .type(tagName);
     return this;
   }
 
   // sometimes all the inputs entered with no error,but once click the save btn it will pop up an error form.
-  clickSave() {
-    cy.getLocator(servicesCreatePageElements.saveBtn)
+  clickSave(): this {
+    cy.getLocator(GatewayServicesCreatePageElements.saveBtn)
       .click()
       .then(() => {
         cy.get('body').then(($body) => {
           if (
             //find expects a selector string, not a Cypress command. so can not use cy.getLocator()
-            $body.find(Utils.getTestId(servicesCreatePageElements.formError))
-              .length > 0
+            $body.find(
+              Utils.getTestId(GatewayServicesCreatePageElements.formError)
+            ).length > 0
           ) {
             // error occured
             cy.wrap($body)
-              .find(servicesCreatePageElements.formError)
+              .find(GatewayServicesCreatePageElements.formError)
               .should('not.exist');
           }
         });
@@ -62,4 +73,4 @@ export class ServiceCreatePage {
   }
 }
 
-export default new ServiceCreatePage();
+export default new GatewayServiceCreatePage();
