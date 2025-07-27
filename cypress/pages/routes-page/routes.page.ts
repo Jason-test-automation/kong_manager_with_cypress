@@ -1,18 +1,25 @@
-const baseUrl = 'http://localhost:8002';
-const routePath = '/default/routes';
+import { RouteDetailPage } from "./route-detail.page";
 
-export const urls = {
-  baseUrl: baseUrl,
-  routesUrl: baseUrl + routePath,
+const ROUTES_URL = {
+  baseUrl: 'http://localhost:8002',
+  path: '/default/routes',
+  get routesUrl() { return `${this.baseUrl}${this.path}`; }
 };
 
-export const routePageElements = {
+export const RoutePageElements = {
   routeNameLabel: 'name',
 };
 
 export class RoutePage {
+  constructor(private routeDetailPage: RouteDetailPage = new RouteDetailPage()) { }
+
+  deleteRouteByRouteName(routeName: string) {
+    this.visit().goToRouteDetailPage(routeName);
+    this.routeDetailPage.deleteRoute(routeName);
+  }
+
   visit() {
-    cy.visit(urls.routesUrl);
+    cy.visit(ROUTES_URL.routesUrl);
     cy.waitForText('Routes');
     return this;
   }

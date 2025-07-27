@@ -1,11 +1,12 @@
 /// <reference types="cypress" />
 
-export {};
+export { };
 
 declare global {
   namespace Cypress {
     interface Chainable {
       dockerUp(): Chainable<void>;
+      verifyDockerIsUP(): Chainable<void>;
       dockerDown(): Chainable<void>;
       getLocator(testId: string): Chainable<JQuery<HTMLElement>>;
       waitForText(
@@ -20,6 +21,16 @@ Cypress.Commands.add('dockerUp', () => {
   cy.exec('docker-compose up -d', { timeout: 180000 }).then(() => {
     cy.wait(5000);
   });
+});
+
+Cypress.Commands.add("verifyDockerIsUP", () => {
+  cy.request({
+    method: 'GET',
+    url: 'http://localhost:8001/status',
+    retryOnStatusCodeFailure: true,
+    retryOnNetworkFailure: true,
+    timeout: 30000
+  }).its('status').should('eq', 200);
 });
 
 Cypress.Commands.add('dockerDown', () => {
