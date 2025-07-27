@@ -1,5 +1,3 @@
-import { Utils } from '../../support/utils';
-
 const baseUrl = 'http://localhost:8002';
 const routePath = '/default/routes';
 

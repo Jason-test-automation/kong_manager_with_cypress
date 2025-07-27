@@ -2,6 +2,7 @@ export const routeDetailPageElements = {
   routeActionsBtn: 'header-actions',
   deleteRouteConfirmInput: 'confirmation-input',
   yesDeleteBtn: 'modal-action-button',
+  routeName: 'name-plain-text',
 };
 
 export class RouteDetailPage {
@@ -10,6 +11,13 @@ export class RouteDetailPage {
     this.clickDelete();
     this.typeRouteName(routeName);
     this.clickYesDelete();
+  }
+
+  getRouteName(): Cypress.Chainable<string> {
+    return cy
+      .getLocator(routeDetailPageElements.routeName)
+      .invoke('text')
+      .then((text) => text.trim());
   }
 
   clickRouteActions() {

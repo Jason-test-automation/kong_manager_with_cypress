@@ -1,12 +1,45 @@
+import { Utils } from '../../support/utils';
+
 export const gatewayServiceDetailPageElements = {
   serviceName: 'name-plain-text',
   serviceID: 'id-copy-uuid',
   gatewayServiceActions: 'header-actions',
   deleteServiceConfirmInput: 'confirmation-input',
   yesDeleteBtn: 'modal-action-button',
+  routesTab: 'service-routes',
+  newRoute: 'empty-state-action',
+  toolbarNewRoute: 'toolbar-add-route',
 };
 
 export class GatewayServiceDetailPage {
+  //if there is no route
+  addRouteFromAlertMessage() {
+    cy.contains('button[type="button"]', 'Add a Route').click();
+  }
+
+  //add routes from left side Routes tab
+  addRoutes() {
+    cy.getLocator(gatewayServiceDetailPageElements.routesTab).click();
+    cy.get('body').then(($body) => {
+      if (
+        $body.find(Utils.getTestId(gatewayServiceDetailPageElements.newRoute))
+          .length > 0
+      ) {
+        cy.getLocator(gatewayServiceDetailPageElements.newRoute).click();
+      } else {
+        cy.getLocator(gatewayServiceDetailPageElements.toolbarNewRoute).click();
+      }
+    });
+    return this;
+  }
+
+  deleteService(serviceName: string) {
+    this.clickServiceActions();
+    this.clickDelete();
+    this.typeServiceName(serviceName);
+    this.clickYesDelete();
+  }
+
   getServiceName(): Cypress.Chainable<string> {
     return cy
       .getLocator(gatewayServiceDetailPageElements.serviceName)
@@ -24,17 +57,6 @@ export class GatewayServiceDetailPage {
           return text.replace('Copy ID', '').trim();
         })
     );
-  }
-
-  addRouteToService() {
-    cy.contains('button[type="button"]', 'Add a Route').click();
-  }
-
-  deleteService(serviceName: string) {
-    this.clickServiceActions();
-    this.clickDelete();
-    this.typeServiceName(serviceName);
-    this.clickYesDelete();
   }
 
   clickServiceActions() {

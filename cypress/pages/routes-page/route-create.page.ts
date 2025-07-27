@@ -22,6 +22,7 @@ export const routesMethods = {
 };
 
 export class RoutesCreatePage {
+  // get into this page from service detail page
   // create a new gateway service frome inputing the url, service name, expend tages field and enter a tag name. click save
   createBasicRoute(
     routeName: string,
