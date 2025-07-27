@@ -1,0 +1,7 @@
+[
+    {
+        "name": "localhost-login",
+        "url": "https://localhost:1001/login",
+        "tags": "login-service-tag1"
+    }
+]

@@ -1,0 +1,8 @@
+[
+    {
+        "name": "login-route1",
+        "path": "/api/login/v1",
+        "host": "localhost",
+        "tags": "route-tag1"
+    }
+]

@@ -1,4 +1,5 @@
 import { Utils } from '../../support/utils';
+import serviceCreatePage from './gateway-service-create.page';
 
 const baseUrl = 'http://localhost:8002';
 const servicePath = '/default/services';
@@ -15,6 +16,15 @@ export const gatewayServicePageElements = {
 };
 
 export class GatewayServicePage {
+  newGatewayService(url: string, serviceName: string, serviceTagName: string) {
+    this.visit().addAGatewayService();
+    serviceCreatePage.createNewGatewayServiceWithUrl(
+      url,
+      serviceName,
+      serviceTagName
+    );
+  }
+
   visit() {
     cy.visit(urls.gateServicesUrl, { timeout: 10000 });
     cy.wait(5000);
@@ -29,14 +39,22 @@ export class GatewayServicePage {
           .length > 0
       ) {
         //already have a service
-        cy.getLocator(gatewayServicePageElements.newGatewayServiceBtn).click();
+        this.addMoreService();
       } else {
         //create a new service
-        cy.getLocator(
-          gatewayServicePageElements.newGatewayServiceEmptyBtn
-        ).click();
+        this.addService();
       }
     });
+    return this;
+  }
+
+  addService() {
+    cy.getLocator(gatewayServicePageElements.newGatewayServiceEmptyBtn).click();
+    return this;
+  }
+
+  addMoreService() {
+    cy.getLocator(gatewayServicePageElements.newGatewayServiceBtn).click();
     return this;
   }
 

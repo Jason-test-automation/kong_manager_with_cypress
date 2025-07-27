@@ -1,63 +1,75 @@
 // import loginPage from './pages/test.page';
 import '../support/commands';
-import WorkspacesPage from '../pages/workspace.page';
-import ServiceCreatePage from '../pages/gateway-services-page/gateway-service-create.page';
-import GatewayServicePage from '../pages/gateway-services-page/gateway-services.page';
-import GatewayServiceDetailPage from '../pages/gateway-services-page/gateway-service-detail.page';
-import RoutesCreatePage, {
+import workspacesPage from '../pages/workspace.page';
+import gatewayServicePage from '../pages/gateway-services-page/gateway-services.page';
+import gatewayServiceDetailPage from '../pages/gateway-services-page/gateway-service-detail.page';
+import routesCreatePage, {
   routesMethods,
 } from '../pages/routes-page/route-create.page';
-import RoutePage from '../pages/routes-page/routes.page';
-import RouteDetailPage from '../pages/routes-page/route-detail.page';
+import routePage from '../pages/routes-page/routes.page';
+import routeDetailPage from '../pages/routes-page/route-detail.page';
 import { Utils } from '../support/utils';
 
-const routeName = 'demo-route';
-const serviceName = 'service_name1';
+const TestData = {
+  service: {
+    name: 'localhost-login',
+    protocol: 'http',
+    host: 'localhost',
+    port: '1001',
+    path: '/login',
+    get url() {
+      return `${this.protocol}://${this.host}:${this.port}${this.path}`;
+    },
+    tag: 'login-service-tag1',
+  },
+  route: {
+    name: 'login-route1',
+    path: '/api/login/v1',
+    host: 'localhost',
+    tag: 'route-tag1',
+    method: 'GET',
+  },
+};
+
 describe('Kong Manager Tests', () => {
   before(() => {
     cy.dockerUp();
   });
 
   after(() => {
-    Utils.deleteRouteByRouteName(routeName);
-    Utils.deleteServiceByRouteName(serviceName);
+    Utils.deleteRouteByRouteName(TestData.route.name);
+    Utils.deleteServiceByServiceName(TestData.service.name);
     cy.dockerDown();
   });
 
-  it('create new gateway service', () => {
-    WorkspacesPage.visit();
-    GatewayServicePage.visit().addAGatewayService();
-    // TODO: use random params
-    const url = 'https://api.kong-air.com/test';
+  it('create new gateway service and add a releated route', () => {
+    workspacesPage.visit();
 
-    const serviceTagName = 'service tag1';
-    ServiceCreatePage.createNewGatewayServiceWithUrl(
-      url,
-      serviceName,
-      serviceTagName
+    //create a service
+    gatewayServicePage.newGatewayService(
+      TestData.service.url,
+      TestData.service.name,
+      TestData.service.tag
     );
-    //then it will goto service detail page
-    GatewayServiceDetailPage.getServiceName().then((name) => {
-      cy.log(`Service Name: ${name}`);
-      expect(name).to.equal(serviceName);
-    });
-    GatewayServiceDetailPage.getServiceID().then((id) => {
-      cy.log(`Service ID: ${id}`);
+    // simple assertion service
+    gatewayServiceDetailPage.getServiceName().then((name) => {
+      expect(name).to.equal(TestData.service.name);
     });
     //add a route to this service
-    GatewayServiceDetailPage.addRouteToService();
+    gatewayServiceDetailPage.addRouteFromAlertMessage();
     //go to route create page
-    const routeTagName = 'route-tag1';
-    const routePath = '/api/v1';
-    const host = 'test.com';
-    RoutesCreatePage.createBasicRoute(
-      routeName,
-      routeTagName,
-      routePath,
+    routesCreatePage.createBasicRoute(
+      TestData.route.name,
+      TestData.route.tag,
+      TestData.route.path,
       routesMethods.get,
-      host
+      TestData.route.host
     );
     //then it will goto Routes page
-    RoutePage.goToRouteDetailPage(routeName);
+    routePage.goToRouteDetailPage(TestData.route.name);
+    //assertion route
+    routeDetailPage.getRouteName().then((name) => {
+      expect(name).to.equal(TestData.route.name);
+    });
   });
 });
