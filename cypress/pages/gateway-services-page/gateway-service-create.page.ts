@@ -11,7 +11,11 @@ export const GatewayServicesCreatePageElements = {
 
 export class GatewayServiceCreatePage {
   // create a new gateway service frome inputing the url, service name, expend tages field and enter a tag name. click save
-  createNewGatewayServiceWithUrl(url: string, name: string, tagName: string): this {
+  createNewGatewayServiceWithUrl(
+    url: string,
+    name: string,
+    tagName: string
+  ): this {
     this.enterFullUrl(url);
     this.entername(name);
     this.clickAddTages();
@@ -21,12 +25,16 @@ export class GatewayServiceCreatePage {
   }
 
   enterFullUrl(url: string): this {
-    cy.getLocator(GatewayServicesCreatePageElements.fullUrlInput).clear().type(url);
+    cy.getLocator(GatewayServicesCreatePageElements.fullUrlInput)
+      .clear()
+      .type(url);
     return this;
   }
 
   entername(name: string): this {
-    cy.getLocator(GatewayServicesCreatePageElements.nameInput).clear().type(name);
+    cy.getLocator(GatewayServicesCreatePageElements.nameInput)
+      .clear()
+      .type(name);
     return this;
   }
 
@@ -36,7 +44,9 @@ export class GatewayServiceCreatePage {
   }
 
   enterTags(tagName: string): this {
-    cy.getLocator(GatewayServicesCreatePageElements.tagsInput).clear().type(tagName);
+    cy.getLocator(GatewayServicesCreatePageElements.tagsInput)
+      .clear()
+      .type(tagName);
     return this;
   }
 
@@ -48,8 +58,9 @@ export class GatewayServiceCreatePage {
         cy.get('body').then(($body) => {
           if (
             //find expects a selector string, not a Cypress command. so can not use cy.getLocator()
-            $body.find(Utils.getTestId(GatewayServicesCreatePageElements.formError))
-              .length > 0
+            $body.find(
+              Utils.getTestId(GatewayServicesCreatePageElements.formError)
+            ).length > 0
           ) {
             // error occured
             cy.wrap($body)

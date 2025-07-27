@@ -43,7 +43,8 @@ export class GatewayServiceDetailPage {
   }
 
   getServiceName(): Cypress.Chainable<string> {
-    return cy.getLocator(GatewayServiceDetailPageElements.serviceName)
+    return cy
+      .getLocator(GatewayServiceDetailPageElements.serviceName)
       .invoke('text')
       .then((text) => text.trim());
   }
@@ -54,7 +55,7 @@ export class GatewayServiceDetailPage {
       // element text end with Copy ID need to replace to ''
       .then((text) => {
         return text.replace('Copy ID', '').trim();
-      })
+      });
     return this;
   }
 

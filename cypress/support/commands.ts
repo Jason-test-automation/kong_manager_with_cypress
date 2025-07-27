@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-export { };
+export {};
 
 declare global {
   namespace Cypress {
@@ -23,14 +23,16 @@ Cypress.Commands.add('dockerUp', () => {
   });
 });
 
-Cypress.Commands.add("verifyDockerIsUP", () => {
+Cypress.Commands.add('verifyDockerIsUP', () => {
   cy.request({
     method: 'GET',
     url: 'http://localhost:8001/status',
     retryOnStatusCodeFailure: true,
     retryOnNetworkFailure: true,
-    timeout: 30000
-  }).its('status').should('eq', 200);
+    timeout: 30000,
+  })
+    .its('status')
+    .should('eq', 200);
 });
 
 Cypress.Commands.add('dockerDown', () => {

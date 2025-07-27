@@ -11,11 +11,12 @@ export class RouteDetailPage {
     this.clickDelete();
     this.typeRouteName(routeName);
     this.clickYesDelete();
-    return this
+    return this;
   }
 
   getRouteName(): Cypress.Chainable<string> {
-    return cy.getLocator(RouteDetailPageElements.routeName)
+    return cy
+      .getLocator(RouteDetailPageElements.routeName)
       .invoke('text')
       .then((text) => text.trim());
   }

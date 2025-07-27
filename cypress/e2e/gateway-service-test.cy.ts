@@ -49,9 +49,10 @@ describe('Kong Manager Tests', () => {
       TestData.service.url,
       TestData.service.name,
       TestData.service.tag
-    )
+    );
     // simple assertion service
-    gatewayServiceDetailPage.getServiceName()
+    gatewayServiceDetailPage
+      .getServiceName()
       .should('eq', TestData.service.name);
     //add a route to this service
     gatewayServiceDetailPage.addRouteFromAlertMessage();
@@ -67,6 +68,5 @@ describe('Kong Manager Tests', () => {
     routePage.goToRouteDetailPage(TestData.route.name);
     //simple assertion route
     routeDetailPage.getRouteName().should('eq', TestData.route.name);
-
   });
 });

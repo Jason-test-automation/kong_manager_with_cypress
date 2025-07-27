@@ -5,7 +5,9 @@ import { GatewayServiceDetailPage } from './gateway-service-detail.page';
 const SERVICE_URL = {
   baseUrl: 'http://localhost:8002',
   path: '/default/services',
-  get gateServicesUrl() { return `${this.baseUrl}${this.path}`; }
+  get gateServicesUrl() {
+    return `${this.baseUrl}${this.path}`;
+  },
 };
 
 export const GatewayServicePageElements = {
@@ -19,16 +21,20 @@ export class GatewayServicePage {
   constructor(
     private readonly createPage: GatewayServiceCreatePage = new GatewayServiceCreatePage(),
     private readonly detailPage: GatewayServiceDetailPage = new GatewayServiceDetailPage()
-  ) { }
+  ) {}
 
-  newGatewayService(url: string, serviceName: string, serviceTagName: string): this {
+  newGatewayService(
+    url: string,
+    serviceName: string,
+    serviceTagName: string
+  ): this {
     this.visit().addAGatewayService();
     this.createPage.createNewGatewayServiceWithUrl(
       url,
       serviceName,
       serviceTagName
     );
-    return this
+    return this;
   }
 
   deleteServiceByServiceName(serviceName: string): this {

@@ -1,9 +1,11 @@
-import { RouteDetailPage } from "./route-detail.page";
+import { RouteDetailPage } from './route-detail.page';
 
 const ROUTES_URL = {
   baseUrl: 'http://localhost:8002',
   path: '/default/routes',
-  get routesUrl() { return `${this.baseUrl}${this.path}`; }
+  get routesUrl() {
+    return `${this.baseUrl}${this.path}`;
+  },
 };
 
 export const RoutePageElements = {
@@ -11,7 +13,9 @@ export const RoutePageElements = {
 };
 
 export class RoutePage {
-  constructor(private routeDetailPage: RouteDetailPage = new RouteDetailPage()) { }
+  constructor(
+    private routeDetailPage: RouteDetailPage = new RouteDetailPage()
+  ) {}
 
   deleteRouteByRouteName(routeName: string) {
     this.visit().goToRouteDetailPage(routeName);
